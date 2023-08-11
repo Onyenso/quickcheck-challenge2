@@ -96,7 +96,7 @@ class PollOptViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
 
-# scheduler = BackgroundScheduler()
-# scheduler.add_job(func=sync_data, trigger="interval", seconds=5)
-# scheduler.start()
-# atexit.register(lambda: scheduler.shutdown())
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=sync_data, trigger="interval", minutes=5)
+scheduler.start()
+atexit.register(lambda: scheduler.shutdown())

@@ -16,7 +16,7 @@ def sync_data():
     
     # Get the latest item ID from the database or start from the latest 100 items
     last_synced_item = Base.objects.exclude(HN_id=None).order_by("-HN_id").first()
-    last_synced_item_id = last_synced_item.HN_id if last_synced_item else max_id - 10
+    last_synced_item_id = last_synced_item.HN_id if last_synced_item else max_id - 100
     print("=================LAST SYNCED ITEM=================", last_synced_item_id)
 
     # Sync from last synced to latest item in HN
