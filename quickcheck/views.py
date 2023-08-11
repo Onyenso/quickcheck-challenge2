@@ -53,7 +53,7 @@ class AllItemsViewSet(viewsets.ModelViewSet):
                 data = paginator.page(paginator.num_pages)
 
             # Calculate a range of page numbers for dynamic pagination links
-            max_pages_to_display = 5
+            max_pages_to_display = 10
             current_page = data.number
             start_page = max(current_page - max_pages_to_display // 2, 1)
             end_page = min(start_page + max_pages_to_display, paginator.num_pages)

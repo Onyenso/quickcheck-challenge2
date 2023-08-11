@@ -61,12 +61,12 @@ Start the development server:
 python manage.py runserver
 ```
 
-Access the web application front-end on your browser at http://localhost:8000/all.
+Access the web application front-end on your browser at https://quickcheck.onrender.com/all/ or (http://localhost:8000/all/ on your local machine).
 
 # API Endpoints
 This project provides a RESTful API for consuming and managing news items. You can view the full ReDoc and Swagger documentaion at:
-- ReDoc documentation: http://localhost:8000/docs
-- Swagger documentation: http://localhost:8000/swagger-docs
+- ReDoc documentation: https://quickcheck.onrender.com/docs or (http://localhost:8000/docs on your local machine)
+- Swagger documentation: https://quickcheck.onrender.com/swagger-docs or (http://localhost:8000/swagger-docs on your local machine)
 
 But here's a summary:
 
