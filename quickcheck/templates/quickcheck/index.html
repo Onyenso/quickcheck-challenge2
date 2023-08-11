@@ -18,8 +18,6 @@
 		<a href="/all/{{ item.id }}/">
 			{% if item.type == 'story' %}
 				<div class="title">Title: {{ item.story.title|default:item.type }}</div>
-			{% elif item.type == 'comment' %}
-				<div class="title">Title: {{ item.comment.title|default:item.type }}</div>
 			{% elif item.type == 'poll' %}
 				<div class="title">Title: {{ item.poll.title|default:item.type }}</div>
 			{% elif item.type == 'job' %}

@@ -43,7 +43,7 @@ class AllItemsViewSet(viewsets.ModelViewSet):
             return self.get_paginated_response(serializer.data)
         else:
             # apply pagination and return HTML response
-            paginator = Paginator(self.queryset.filter(type__in=["story", "job", "poll", "comment"]), self.pagination_class.page_size)
+            paginator = Paginator(self.queryset.filter(type__in=["story", "job", "poll"]), self.pagination_class.page_size)
             page_number = request.GET.get('page')
             try:
                 data = paginator.page(page_number)
