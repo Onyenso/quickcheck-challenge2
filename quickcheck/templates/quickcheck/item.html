@@ -1,0 +1,67 @@
+{% extends "quickcheck/layout.html" %}
+
+{% block body %}
+  <h1>Item</h1>
+	<div class="item">
+		{% if item.type == 'story' %}
+			<a href="/stories/{{ item.id }}"><div class="title">Title: {{ item.story.title|default:item.type }}</div></a>
+
+		{% elif item.type == 'comment' %}
+			<a href="/comments/{{ item.id }}"><div class="title">Title: {{ item.comment.title|default:item.type }}</div></a>
+            {% if item.comment.parent %}
+                <a href="/all/{{ item.comment.parent.id }}/"><div>Parent: {{ item.comment.parent.story.title|default:item.comment.parent.comment }}</div></a>
+            {% else %}
+                <div>Parent: None</div>
+            {% endif %}
+
+		{% elif item.type == 'poll' %}
+			<a href="/polls/{{ item.id }}"><div class="title">Title: {{ item.poll.title|default:item.type }}</div></a>
+
+		{% elif item.type == 'job' %}
+			<a href="/jobs/{{ item.id }}"><div class="title">Title: {{ item.job.title|default:item.type }}</div></a>
+        
+        {% elif item.type == 'pollopt' %}
+            <a href="/pollopts/{{ item.id }}"><div class="title">Title: {{ item.pollopt.title|default:item.type }}</div></a>
+            {% if item.pollopt.parent %}
+                <a href="/all/{{ item.pollopt.parent.id }}/"><div>Parent: {{ item.pollopt.parent.poll.title|default:item.pollopt.parent.pollopt }}</div></a>
+            {% else %}
+                <div>Parent: None</div>
+            {% endif %}
+
+		{% endif %}
+
+		<div>Type: {{ item.type }}</div>
+		<div class="">Author: {{ item.by }}</div>
+		<div class="">Date: {{ item.time }}</div>
+		<div class="">ID: {{ item.HN_id|default:item.id }}</div>
+
+        <hr style="background-color: black;">
+        
+        Comments: {{ item.kids.all.count }}
+        <ul>
+            {% for comment in item.kids.all %}
+            <li>
+                <a href="/all/{{ comment.id }}">
+                <div class="comment">
+                    <div class="by">Author: {{ comment.by }}</div>
+                    <div class="time">Date: {{ comment.time }}</div>
+                    <div class="text">Text: {{ comment.text }}</div>
+                    <div class="id">ID: {{ comment.HN_id|default:comment.id }}</div>
+                    {% if comment.kids.all %}
+                        <div class="comment-kids">Kids: {{ comment.kids.all|length }}</div>
+                        {% for kid in comment.kids.all %}
+                        <div class="kid">
+                            <div class="kid-by">Author: {{ kid.by }}</div>
+                            <div class="kid-time">Date: {{ kid.time }}</div>
+                            <div class="kid-text">Text: {{ kid.text }}</div>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        
+	</div>
+{% endblock %}

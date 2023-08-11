@@ -1,0 +1,60 @@
+{% extends "quickcheck/layout.html" %}
+
+{% block body %}
+<form method="get" action="/all">
+	<label for="search">Search:</label>
+	<input class="form-control" type="text" name="search" id="search" placeholder="Search by item text or title."/>
+	<br>
+	<label>Filter by Type:</label>
+        <label for="story"><input type="radio" id="story" name="type" value="story"> Story</label>
+        <label for="job"><input type="radio" id="job" name="type" value="job"> Job</label>
+        <label for="poll"><input type="radio" id="poll" name="type" value="poll"> Poll</label>
+	<div><button type="submit">Search and Filter</button></div>
+</form>
+
+  <h1>Items</h1>
+    {% for item in data %}
+	<div class="item">
+		<a href="/all/{{ item.id }}/">
+			{% if item.type == 'story' %}
+				<div class="title">Title: {{ item.story.title|default:item.type }}</div>
+			{% elif item.type == 'comment' %}
+				<div class="title">Title: {{ item.comment.title|default:item.type }}</div>
+			{% elif item.type == 'poll' %}
+				<div class="title">Title: {{ item.poll.title|default:item.type }}</div>
+			{% elif item.type == 'job' %}
+				<div class="title">Title: {{ item.job.title|default:item.type }}</div>
+			{% endif %}
+		</a>
+		<div>Type: {{ item.type }}</div>
+		<div class="by">Author: {{ item.by }}</div>
+		<div class="time">Date: {{ item.time }}</div>
+		<div class="id">ID: {{ item.HN_id|default:item.id }}</div>
+	</div>
+	{% empty %}
+		<p>No items are available.</p>
+	{% endfor %}
+  <div class="pagination">
+    <span class="step-links">
+        {% if data.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ data.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% for page_num in data.paginator.page_range %}
+            {% if page_num >= start_page and page_num <= end_page %}
+                {% if page_num == data.number %}
+                    <span class="current-page">{{ page_num }}</span>
+                {% else %}
+                    <a href="?page={{ page_num }}">{{ page_num }}</a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+        {% if data.has_next %}
+            <a href="?page={{ data.next_page_number }}">Next</a>
+            <a href="?page={{ data.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+    </span>
+  </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+venv
+# db.sqlite3
+.DS_Store
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+__pycache__/
+.env
+staticfiles
