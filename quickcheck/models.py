@@ -31,14 +31,14 @@ class Base(models.Model):
 class Job(Base):
     text = models.TextField(null=True)
     title = models.CharField(max_length=255, null=True)
-    url = models.URLField(null=True)
+    url = models.URLField(null=True, max_length=500)
 
 
 class Story(Base):
     descendants = models.IntegerField(null=True)
     score = models.IntegerField(null=True)
     title = models.CharField(max_length=255, null=True)
-    url = models.URLField(null=True)
+    url = models.URLField(null=True, max_length=500)
 
 
 class Comment(Base):
